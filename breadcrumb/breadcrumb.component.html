@@ -1,0 +1,71 @@
+<div aria-label="breadcrumb" class="app-breadcrumb-root" [ngClass]="class">
+  <ol class="app-breadcrumb-list">
+    <ng-container
+      *ngFor="
+        let breadcrumb of breadcrumbs;
+        last as isLast;
+        first as isFirst;
+        index as index;
+        count as count
+      "
+    >
+      <li class="app-breadcrumb-item">
+        <a
+          *ngIf="!isLast"
+          (click)="handleRoute(breadcrumb)"
+          (keydown.enter)="handleRoute(breadcrumb)"
+          class="app-breadcrumb-link"
+          [ngClass]="{ 'app-breadcrumb-link-disabled': breadcrumb.disable }"
+          [attr.aria-disabled]="breadcrumb.disable"
+          [attr.tabIndex]="breadcrumb.disable ? -1 : 0"
+          role="button"
+        >
+          <ng-container
+            *ngTemplateOutlet="
+              itemTemplate;
+              context: {
+                $implicit: breadcrumb.label,
+                info: breadcrumb.info,
+                last: isLast,
+                first: isFirst,
+                index: index,
+                count: count
+              }
+            "
+          ></ng-container>
+          <ng-container *ngIf="!itemTemplate">{{
+            breadcrumb.label
+          }}</ng-container>
+        </a>
+        <a *ngIf="isLast" class="app-breadcrumb-link-disabled">
+          <ng-container
+            *ngTemplateOutlet="
+              itemTemplate;
+              context: {
+                $implicit: breadcrumb.label,
+                info: breadcrumb.info,
+                last: isLast,
+                first: isFirst,
+                index: index,
+                count: count
+              }
+            "
+          ></ng-container>
+          <ng-container *ngIf="!itemTemplate">{{
+            breadcrumb.label
+          }}</ng-container>
+        </a>
+      </li>
+
+      <li
+        *ngIf="!isLast"
+        class="app-breadcrumb-separator"
+        aria-hidden="true"
+        role="separator"
+      >
+        <ng-container *ngTemplateOutlet="separatorTemplate"></ng-container>
+        <ng-container *ngIf="!separatorTemplate">{{ separator }}</ng-container>
+      </li>
+    </ng-container>
+  </ol>
+</div>
