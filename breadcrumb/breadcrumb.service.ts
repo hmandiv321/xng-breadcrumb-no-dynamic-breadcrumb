@@ -15,7 +15,6 @@ const PATH_PARAM = {
   REGEX_IDENTIFIER: '/:[^/]+',
   REGEX_REPLACER: '/[^/]+',
 };
-const ALIAS_PREFIX = '@';
 const isNonEmpty = (obj: unknown): boolean => {
   return obj && Object.keys(obj).length > 0;
 };
